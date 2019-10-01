@@ -179,11 +179,9 @@ public class StreamProcess implements Loadable, Saveable {
             }
             System.out.println(response[9] = "Which maze would you like to restore?");
             int choice = readInt(new Scanner(ipss[accu++]));
-            System.out.println("****" + choice);
             while (choice > lines.size()) {
                 System.out.println(response[10] = "Please select those available here!");
                 choice = readInt(new Scanner(ipss[accu++]));
-                System.out.println("****" + choice);
             }
             stringToList(lines.get(choice - 1));
             return true;
