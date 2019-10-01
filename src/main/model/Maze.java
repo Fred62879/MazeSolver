@@ -5,29 +5,20 @@ import java.util.List;
 
 public class Maze {
 
+    // private List<Integer> inputs;
     private List<Integer> inputs;
-    private int[][] matrix;
     private int row;
     private int col;
+
+    private int[][] matrix;
     private Boolean valid;
 
     // EFFECTS: constructs the maze from user input and validates maze
-    public Maze(List<Integer> ip) {
+    public Maze(List<Integer> ip, int row, int col) {
         inputs = ip;
-        valid = readInRC() && readInMatrix() && validMaze();
-    }
-
-    // MODIFIES: this
-    // EFFECTS: update this.row and this.col and check whether input is of correct format
-    //          returns true if no error, false otherwise
-    public Boolean readInRC() {
-        if (inputs.size() < 2) {
-            System.out.println("Warning: row and column numbers are not received");
-            return false;
-        }
-        row = inputs.get(0);
-        col = inputs.get(1);
-        return true;
+        this.row = row;
+        this.col = col;
+        valid = readInMatrix() && validMaze();
     }
 
     // REQUIRES: input contains at least two entries being row and column numbers
@@ -35,12 +26,12 @@ public class Maze {
     // EFFECTS: updates matrix using inputs or cast error if matrix size incorrect
     //          returns true if no error, false otherwise
     public Boolean readInMatrix() {
-        if (row * col != inputs.size() - 2) {
+        if (row * col != inputs.size()) {
             System.out.println("Warning: maze is not of the specified size");
             return false;
         }
         this.matrix = new int[row][col];
-        int count = 2;
+        int count = 0;
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 matrix[i][j] = inputs.get(count++);
