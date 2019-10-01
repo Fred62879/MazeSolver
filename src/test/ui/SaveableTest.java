@@ -1,6 +1,6 @@
 package ui;
 
-import model.Process;
+import model.InputProcess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.*;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SaveableTest {
 
-    Process p;
+    InputProcess p;
     // String str = "2 2 0 0 0 1 ";
 
     @BeforeEach
@@ -28,7 +28,7 @@ public class SaveableTest {
         String output = ops.toString();
         System.out.println("\n Printed: \n" + output);
         */
-        p = new Process();
+        p = new InputProcess();
     }
 
     @Test

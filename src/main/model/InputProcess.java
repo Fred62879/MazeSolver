@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class Process implements Loadable, Saveable {
+public class InputProcess implements Loadable, Saveable {
 
     private Maze mz;
     private int row;
@@ -18,7 +18,7 @@ public class Process implements Loadable, Saveable {
     private String[] response;
 
     // EFFECTS: instructs the user to give input, reads in and checks validity
-    public Process() {
+    public InputProcess() {
         response = new String[11];
         System.out.println(response[0] = "Hi there, this is a Maze solver!");
         allInts = false;

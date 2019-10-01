@@ -1,7 +1,7 @@
 package ui;
 
 import model.Loadable;
-import model.Process;
+import model.InputProcess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.FileWriter;
@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LoadableTest {
 
-    Process p;
+    InputProcess p;
 
     @BeforeEach
     public void setup() {
-        p = new Process();
+        p = new InputProcess();
     }
 
     @Test

@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class StreamProcessTest {
+public class StreamInputProcessTest {
 
     StreamProcess sp1, sp2, sp3, sp4, sp5, sp6, sp7;
     String[] orders1, orders2, orders3, orders4, orders5, orders6, orders7;
