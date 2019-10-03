@@ -1,7 +1,6 @@
 package ui;
 
 import model.Process;
-
 import java.io.IOException;
 
 public class Main {
