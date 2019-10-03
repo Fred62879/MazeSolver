@@ -1,13 +1,13 @@
 package ui;
 
-import model.InputProcess;
+import model.Process;
 
 import java.io.IOException;
 
 public class Main {
 
     public Main() throws IOException {
-        InputProcess p = new InputProcess();
+        Process p = new Process();
         p.run();
 
     }
