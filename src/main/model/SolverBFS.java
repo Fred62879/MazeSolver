@@ -40,11 +40,11 @@ public class SolverBFS extends MazeSolver {
         for (int i = 0; i < queue.size(); i++) {
             int cur = queue.get(i);
             List<Integer> curPath = pathCol.get(i);
-            if (cur / row == row - 1 && cur % row == col - 1) {
+            if (cur / col == row - 1 && cur % col == col - 1) {
                 path = curPath;
                 return true;
             }
-            helper(cur / row, cur % row, curPath);
+            helper(cur / col, cur % col, curPath);
         }
         return false;
     }
