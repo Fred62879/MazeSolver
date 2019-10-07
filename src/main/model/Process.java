@@ -1,40 +1,34 @@
 package model;
 
-import ui.ReadInput;
-
-import java.io.IOException;
-import java.util.List;
-
 public class Process {
 
-    private List<String> lines;
-    private String[] response;
-    private ReadInput ri;
     private MazeSolver ms;
+    private int[][] matrix;
+    private int choice;
 
     // EFFECTS: instructs the user to give input, reads in and checks validity
-    public Process() {
-        ri = new ReadInput();
+    public Process(int[][] matrix) {
+        this.matrix = matrix;
     }
 
-    // REQUIRES: user input consists of only integers
-    // EFFECTS: restores stored maze or initializes new maze
-    public void run() throws IOException {
-        ri.readIn();
-        if (ri.getQuit()) {
-            System.out.println("User quit!");
-        }
-        int choice = ri.choose();
+    // REQUIRES: choice is either 1 or 2
+    // EFFECTS: solve maze using algr chosen by user
+    public String run(int choice) {
+        String res = "";
         if (choice == 1) {
-            ms = new SolverDFS(ri.getMz().getWholeMatrix());
+            ms = new SolverDFS(matrix);
+            res += "1 ";
         } else {
-            ms = new SolverBFS(ri.getMz().getWholeMatrix());
+            ms = new SolverBFS(matrix);
+            res += "2 ";
         }
-        boolean solvable = ms.solve(0, 0);
-        if (solvable) {
+        if (ms.solve(0, 0)) {
             ms.demo();
+            res += "s";
         } else {
-            System.out.println("Maze unsolvable");
+            System.out.println("Maze unsolvable!");
+            return "Maze unsolvable!";
         }
+        return res;
     }
 }
