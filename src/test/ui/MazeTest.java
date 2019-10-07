@@ -126,6 +126,23 @@ public class MazeTest {
         assertTrue(mz5.validMaze());
     }
 
+
+    @Test
+    public void testGetInputs() {
+        for (int i = 0; i < 4; i++){
+            assertEquals(ip1.get(i), mz1.getInputs(i));
+        }
+        for (int i = 0; i < 4; i++){
+            assertEquals(ip2.get(i), mz2.getInputs(i));
+        }
+        for (int i = 0; i < 6; i++){
+            assertEquals(ip3.get(i), mz3.getInputs(i));
+        }
+        for (int i = 0; i < 10; i++){
+            assertEquals(ip5.get(i), mz5.getInputs(i));
+        }
+    }
+
     @Test
     public void testGetRow() {
         assertEquals(mz1.getRow(), 2);
@@ -148,6 +165,20 @@ public class MazeTest {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 2; j++) {
                 assertEquals(mz3.getMatrix(i, j), ip3.get(i * 2 + j));
+            }
+        }
+    }
+
+    @Test
+    public void testGetWholeMatrix() {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                assertEquals(mz1.getWholeMatrix()[i][j], ip1.get(i * 2 + j));
+            }
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 2; j++) {
+                assertEquals(mz3.getWholeMatrix()[i][j], ip3.get(i * 2 + j));
             }
         }
     }

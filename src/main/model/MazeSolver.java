@@ -13,8 +13,6 @@ public abstract class MazeSolver {
     protected List<Integer> path;
     protected HashSet<Integer> visited;
 
-    public MazeSolver() {    }
-
     // EFFECTS: constructs new maze solver
     public MazeSolver(int[][] matrix) {
         this.matrix = matrix;
@@ -27,23 +25,28 @@ public abstract class MazeSolver {
 
     // EFFECTS: produces true if given coor is within matrix and not visited
     //          false otherwise
-    protected boolean valid(int cr, int cc) {
+    public boolean valid(int cr, int cc) {
         return cr >= 0 && cc >= 0 && cr < row && cc < col && matrix[cr][cc] == 1 && !visited.contains(cr * col + cc);
     }
 
-    protected abstract boolean solve(int cr, int cc);
+    public abstract boolean solve(int cr, int cc);
 
     // REQUIRES: maze solvable
     // EFFECTS: prints one possible maze path
-    public void demo() {
+    public String demo() {
+        String res = "";
         HashSet<Integer> pathSet = new HashSet<>(path);
         System.out.println("\n" + "NOTE: * here represents path");
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                System.out.print(matrix[i][j] == 0 ? "x " : (pathSet.contains(i * col + j) ? "* " : "o "));
+                String cur = matrix[i][j] == 0 ? "x " : (pathSet.contains(i * col + j) ? "* " : "o ");
+                res += cur;
+                System.out.print(cur);
             }
             System.out.println();
+            res += "\n";
         }
+        return res;
     }
 
 }
