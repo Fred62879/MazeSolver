@@ -1,10 +1,11 @@
 package ui;
 
+import exceptions.InvalidChoiceException;
 import model.Process;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ProcessTest {
 
@@ -25,16 +26,37 @@ public class ProcessTest {
         p4 = new Process(mtrx4);
     }
 
+    public boolean unit(String exp1, String exp2, Process p) {
+        boolean res = true;
+        try {
+            String s = p.run(1);
+            assertEquals(exp1, s);
+        } catch (InvalidChoiceException ex) {
+            res = false;
+            fail();
+        }
+        try {
+            String s = p.run(2);
+            assertEquals(exp2, s);
+        } catch (InvalidChoiceException ex) {
+            res = false;
+            fail();
+        }
+        try {
+            String s = p.run(3);
+            res = false;
+            fail();
+        } catch (InvalidChoiceException ex) {
+        }
+        return res;
+    }
+
     @Test
     public void testRun() {
-        assertEquals("1 s", p1.run(1));
-        //assertEquals("2 s", p1.run(2));
-        assertEquals("1 s", p2.run(1));
-        assertEquals("2 s", p2.run(2));
-        assertEquals("Maze unsolvable!", p3.run(1));
-        assertEquals("Maze unsolvable!", p3.run(2));
-        assertEquals("Maze unsolvable!", p4.run(1));
-        assertEquals("Maze unsolvable!", p4.run(2));
+        assertTrue((unit("1 s", "2 s", p1)));
+        assertTrue((unit("1 s", "2 s", p2)));
+        assertTrue((unit("Maze unsolvable!", "Maze unsolvable!", p3)));
+        assertTrue((unit("Maze unsolvable!", "Maze unsolvable!", p4)));
     }
 
 }

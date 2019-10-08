@@ -1,5 +1,7 @@
 package ui;
 
+import exceptions.EntryInsufficientException;
+import exceptions.MazeRecordInvalidException;
 import model.Maze;
 
 import java.io.IOException;
@@ -151,11 +153,15 @@ public class ReadInput {
     // EFFECTS: restores stored maze or initializes new maze
     public void readIn() throws IOException {
         mz = new Maze();
-        if (select()) {
-            mz.load(line);
-        } else {
-            readInLoop();
+        while (select()) {
+            try {
+                mz.load(line);
+                return;
+            } catch (MazeRecordInvalidException | EntryInsufficientException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
+        readInLoop();
         if (!quit) {
             mz.showMaze();
         }

@@ -34,7 +34,7 @@ public class MazeTest {
         mz3 = new Maze(ip3, 3, 2);
         // mz4 = new Maze(ip4, 2, 2);
         mz5 = new Maze(ip5, 10, 1);
-    }
+    }_
 
     @Test
     public void testLoadRC() {

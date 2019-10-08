@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.InvalidChoiceException;
+
 public class Process {
 
     private MazeSolver ms;
@@ -13,15 +15,18 @@ public class Process {
 
     // REQUIRES: choice is either 1 or 2
     // EFFECTS: solve maze using algr chosen by user
-    public String run(int choice) {
+    public String run(int choice) throws InvalidChoiceException {
         String res = "";
         if (choice == 1) {
             ms = new SolverDFS(matrix);
             res += "1 ";
-        } else {
+        } else if (choice == 2) {
             ms = new SolverBFS(matrix);
             res += "2 ";
+        } else {
+            throw new InvalidChoiceException("Please select algorithms available here!");
         }
+
         if (ms.solve(0, 0)) {
             ms.demo();
             res += "s";

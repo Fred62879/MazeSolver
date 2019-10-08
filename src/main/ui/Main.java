@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.InvalidChoiceException;
 import model.Process;
 
 import java.io.IOException;
@@ -15,7 +16,16 @@ public class Main {
             System.out.println("User quit!");
         } else {
             Process p = new Process(ri.getMz().getWholeMatrix());
-            p.run(ri.choose());
+            while (true) {
+                try {
+                    p.run(ri.choose());
+                    break;
+                } catch (InvalidChoiceException ex) {
+                    System.out.println(ex.getMessage());
+                } finally {
+                    System.out.println("** Maze solver terminated **");
+                }
+            }
         }
     }
 
