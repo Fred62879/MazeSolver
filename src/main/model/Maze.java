@@ -27,6 +27,7 @@ public class Maze implements Saveable, Loadable {
         inputs = ip;
         this.row = row;
         this.col = col;
+        valid = false;
         initialize();
     }
 
@@ -97,6 +98,7 @@ public class Maze implements Saveable, Loadable {
         writer.println(str);
         writer.close();
     }
+
 
     // Load kits
     @Override
