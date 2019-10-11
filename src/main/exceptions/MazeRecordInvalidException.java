@@ -1,6 +1,6 @@
 package exceptions;
 
-public class MazeRecordInvalidException extends Exception{
+public class MazeRecordInvalidException extends Exception {
 
     public MazeRecordInvalidException() {}
 

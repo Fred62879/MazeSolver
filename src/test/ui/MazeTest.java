@@ -47,8 +47,16 @@ public class MazeTest {
     }
 
     @Test
-    public void testInitialize() {
+    public void testInitializeInvalid() {
+        assertEquals("Warning: Maze start or end are blocked!", mz1.initialize());
+        assertEquals("Warning: Maze start or end are blocked!", mz2.initialize());
+        assertEquals("Warning: Maze contains elements other than 0 and 1", mz6.initialize());
+    }
 
+    @Test
+    public void testInitializeValid() {
+        assertEquals("Maze read in terminated", mz3.initialize());
+        assertEquals("Maze read in terminated", mz5.initialize());
     }
 
     @Test

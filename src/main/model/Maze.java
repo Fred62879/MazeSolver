@@ -20,7 +20,9 @@ public class Maze implements Saveable, Loadable {
     private Boolean valid;
 
     // EFFECTS: initializes an empty maze
-    public Maze() {    }
+    public Maze() {
+        valid = false;
+    }
 
     // EFFECTS: constructs the maze from user input and validates maze
     public Maze(List<Integer> ip, int row, int col) {
@@ -34,18 +36,23 @@ public class Maze implements Saveable, Loadable {
     // EFFECTS: converts inputs into matrix representation
     //          if entries other than 0 and 1 given throws exception
     //          if start (top-left) or end (bottom-right) entry being 0 throws exception
-    public void initialize() {
+    public String initialize() {
         readInMatrix();
         try {
             validMaze();
             valid = true;
         } catch (EntryInvalidException ex) {
             System.out.println(ex.getMessage());
+            return ex.getMessage();
         } catch (EntryBlockedException ex) {
             System.out.println(ex.getMessage());
+            return ex.getMessage();
         } finally {
-            System.out.println("Maze read in terminated");
+            ;
         }
+        System.out.println("Maze read in terminated");
+
+        return "Maze read in terminated";
     }
 
     // REQUIRES: input contains at least two entries being row and column numbers
