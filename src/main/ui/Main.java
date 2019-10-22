@@ -8,23 +8,28 @@ import java.io.IOException;
 public class Main {
 
     ReadInput ri;
+    Process prcs;
 
     public Main() throws IOException {
-        ri = new ReadInput();
-        ri.readIn();
-        if (ri.getQuit()) {
-            System.out.println("User quit!");
-        } else {
-            Process p = new Process(ri.getMz().getWholeMatrix());
-            while (true) {
-                try {
-                    p.run(ri.choose());
-                    break;
-                } catch (InvalidChoiceException ex) {
-                    System.out.println(ex.getMessage());
-                } finally {
-                    System.out.println("** Maze solver terminated **");
+        prcs = new Process();
+        while (true) {
+            ri = new ReadInput();
+            ri.readIn();
+            if (ri.getQuit()) {
+                System.out.println("User quit!");
+            } else {
+                prcs.initialize(ri.getMz());
+                while (true) {
+                    try {
+                        prcs.run(ri.choose());
+                        break;
+                    } catch (InvalidChoiceException ex) {
+                        System.out.println(ex.getMessage());
+                    }
                 }
+            }
+            if (!ri.solveNewMaze()) {
+                break;
             }
         }
     }

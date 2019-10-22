@@ -33,6 +33,41 @@ public class Maze implements Saveable, Loadable {
         initialize();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || getClass() != (o.getClass())) {
+            return false;
+        }
+        Maze mo = (Maze) o;
+        if (mo.getRow() != row || mo.getCol() != col) {
+            return false;
+        }
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (mo.getMatrix(i, j) !=  matrix[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        long hash = 0;
+        int q = 1000000007;
+        int n = row * col;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                hash = (n * hash % q + matrix[i][j]) % q;
+            }
+        }
+        return (int)hash;
+    }
+
     // EFFECTS: converts inputs into matrix representation
     //          if entries other than 0 and 1 given throws exception
     //          if start (top-left) or end (bottom-right) entry being 0 throws exception
@@ -48,10 +83,8 @@ public class Maze implements Saveable, Loadable {
             System.out.println(ex.getMessage());
             return ex.getMessage();
         } finally {
-            ;
+            System.out.println("Maze read in terminated");
         }
-        System.out.println("Maze read in terminated");
-
         return "Maze read in terminated";
     }
 
@@ -87,8 +120,8 @@ public class Maze implements Saveable, Loadable {
     // REQUIRES: maze is valid
     // EFFECTS: prints the maze
     public void showMaze() {
-        System.out.println();
-        System.out.println("This is how your maze looks like:");
+        // System.out.println();
+        // System.out.println("This is how your maze looks like:");
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 System.out.print(matrix[i][j] == 1 ? "o " : "x ");

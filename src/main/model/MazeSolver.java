@@ -49,4 +49,11 @@ public abstract class MazeSolver {
         return res;
     }
 
+    public List<Integer> getPath() {
+        return path;
+    }
+
+    public void setPath(List<Integer> path) {
+        this.path = path;
+    }
 }

@@ -20,10 +20,10 @@ public class ProcessTest {
         mtrx3 = new int[][]{{1, 0}, {0, 0}};
         mtrx4 = new int[][]{{1, 1, 0}, {1, 0, 1}, {0, 1, 1}};
 
-        p1 = new Process(mtrx1);
-        p2 = new Process(mtrx2);
-        p3 = new Process(mtrx3);
-        p4 = new Process(mtrx4);
+        p1 = new Process(); p1.initialize(mtrx1);
+        p2 = new Process(); p2.initialize(mtrx2);
+        p3 = new Process(); p3.initialize(mtrx3);
+        p4 = new Process(); p4.initialize(mtrx4);
     }
 
     public boolean unit(String exp1, String exp2, Process p) {
