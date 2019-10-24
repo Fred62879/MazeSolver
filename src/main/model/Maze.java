@@ -18,6 +18,7 @@ public class Maze implements Saveable, Loadable {
     private int col;
     private int[][] matrix;
     private Boolean valid;
+    private Process process;
 
     // EFFECTS: initializes an empty maze
     public Maze() {
@@ -31,6 +32,17 @@ public class Maze implements Saveable, Loadable {
         this.col = col;
         valid = false;
         initialize();
+    }
+
+    public void setProcess(Process process) {
+        this.process = process;
+    }
+
+    public void removeProcess() {
+        if (process != null) {
+            process.removeCurMaze();
+            process = null;
+        }
     }
 
     @Override

@@ -22,6 +22,9 @@ public class Main {
                 while (true) {
                     try {
                         prcs.run(ri.choose());
+                        if (ri.removeStorage()) {
+                            prcs.removeCurMaze();
+                        }
                         break;
                     } catch (InvalidChoiceException ex) {
                         System.out.println(ex.getMessage());

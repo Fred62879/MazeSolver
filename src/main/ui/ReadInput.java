@@ -178,6 +178,12 @@ public class ReadInput {
         return choice;
     }
 
+    public boolean removeStorage() {
+        System.out.println("Would you like to empty the mem for the maze just solved?(y/n)");
+        Scanner s = new Scanner(System.in);
+        return s.next().charAt(0) == 'y';
+    }
+
     public boolean solveNewMaze() {
         System.out.println("Would you like to solve a new Maze?(y/n)");
         Scanner s = new Scanner(System.in);

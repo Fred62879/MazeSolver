@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Process {
 
-    private Maze mz;
+    private Maze currentMaze;
     private MazeSolver ms;
     private int[][] matrix; // for test purposes
     public HashMap<Maze, List<Integer>> solved;
@@ -18,7 +18,7 @@ public class Process {
     }
 
     public void initialize(Maze mz) {
-        this.mz = mz;
+        this.currentMaze = mz;
         this.matrix = mz.getWholeMatrix();
     }
 
@@ -29,7 +29,7 @@ public class Process {
     public String retrieve() {
         String res = "";
         System.out.println(res = "Maze solved before: solution retrieved from storage!");
-        ms.setPath(solved.get(mz));
+        ms.setPath(solved.get(currentMaze));
         ms.demo();
         return res;
     }
@@ -48,7 +48,7 @@ public class Process {
 
         if (ms.solve(0, 0)) {
             ms.demo();
-            solved.put(mz, ms.getPath());
+            solved.put(currentMaze, ms.getPath());
             res += "s";
         } else {
             System.out.println(res = "Maze unsolvable!");
@@ -60,10 +60,17 @@ public class Process {
     // EFFECTS: solve maze using algr chosen by user
     public String run(int choice) throws InvalidChoiceException {
         System.out.println(solved.size());
-        if (solved.containsKey(mz)) {
+        if (solved.containsKey(currentMaze)) {
             return retrieve();
         } else {
             return solveNow(choice);
+        }
+    }
+
+    public void removeCurMaze() {
+        if (solved.containsKey(currentMaze)) {
+            solved.remove(currentMaze);
+            currentMaze.removeProcess();
         }
     }
 }
