@@ -26,6 +26,14 @@ public class Process {
         this.matrix = matrix;
     }
 
+
+    public void removeCurMaze() {
+        if (solved.containsKey(currentMaze)) {
+            solved.remove(currentMaze);
+            // currentMaze.removeProcess();
+        }
+    }
+
     public String retrieve() {
         String res = "";
         System.out.println(res = "Maze solved before: solution retrieved from storage!");
@@ -59,18 +67,9 @@ public class Process {
     // REQUIRES: choice is either 1 or 2
     // EFFECTS: solve maze using algr chosen by user
     public String run(int choice) throws InvalidChoiceException {
-        System.out.println(solved.size());
         if (solved.containsKey(currentMaze)) {
             return retrieve();
-        } else {
-            return solveNow(choice);
         }
-    }
-
-    public void removeCurMaze() {
-        if (solved.containsKey(currentMaze)) {
-            solved.remove(currentMaze);
-            currentMaze.removeProcess();
-        }
+        return solveNow(choice);
     }
 }

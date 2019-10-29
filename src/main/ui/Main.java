@@ -11,6 +11,7 @@ public class Main {
     Process prcs;
 
     public Main() throws IOException {
+        System.out.println("Hi there, this is a Maze solver!");
         prcs = new Process();
         while (true) {
             ri = new ReadInput();

@@ -13,71 +13,19 @@ import java.util.List;
 
 public class Maze implements Saveable, Loadable {
 
-    private List<Integer> inputs;
-    private int row;
-    private int col;
-    private int[][] matrix;
-    private Boolean valid;
-    private Process process;
+    protected int row;
+    protected int col;
+    protected int[][] matrix;
+    protected Boolean valid;
+    protected List<Integer> inputs;
 
     // EFFECTS: initializes an empty maze
     public Maze() {
+        row = 0;
+        col = 0;
+        matrix = null;
         valid = false;
-    }
-
-    // EFFECTS: constructs the maze from user input and validates maze
-    public Maze(List<Integer> ip, int row, int col) {
-        inputs = ip;
-        this.row = row;
-        this.col = col;
-        valid = false;
-        initialize();
-    }
-
-    public void setProcess(Process process) {
-        this.process = process;
-    }
-
-    public void removeProcess() {
-        if (process != null) {
-            process.removeCurMaze();
-            process = null;
-        }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (o == null || getClass() != (o.getClass())) {
-            return false;
-        }
-        Maze mo = (Maze) o;
-        if (mo.getRow() != row || mo.getCol() != col) {
-            return false;
-        }
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                if (mo.getMatrix(i, j) !=  matrix[i][j]) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        long hash = 0;
-        int q = 1000000007;
-        int n = row * col;
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                hash = (n * hash % q + matrix[i][j]) % q;
-            }
-        }
-        return (int)hash;
+        inputs = null;
     }
 
     // EFFECTS: converts inputs into matrix representation
@@ -129,31 +77,17 @@ public class Maze implements Saveable, Loadable {
         }
     }
 
-    // REQUIRES: maze is valid
-    // EFFECTS: prints the maze
-    public void showMaze() {
-        // System.out.println();
-        // System.out.println("This is how your maze looks like:");
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                System.out.print(matrix[i][j] == 1 ? "o " : "x ");
-            }
-            System.out.println();
-        }
+    // MODIFIES: this
+    // EFFECTS: read in matrix from user input
+    public void readMaze(List<Integer> ip, int row, int col) {
+        inputs = ip;
+        this.row = row;
+        this.col = col;
     }
-
-    @Override
-    // EFFECTS: saves user input maze to local storage
-    public void save(String str) throws IOException {
-        FileWriter fw = new FileWriter("inputfile.txt", true);
-        PrintWriter writer = new PrintWriter(fw);
-        writer.println(str);
-        writer.close();
-    }
-
 
     // Load kits
     @Override
+    // MODIFIES: this
     // EFFECTS: retrieves local maze storage and prints out
     public void load(String line) throws EntryInsufficientException, MazeRecordInvalidException {
         if (!loadPreCheck(line)) {
@@ -181,7 +115,7 @@ public class Maze implements Saveable, Loadable {
         int[] res = new int[2];
         for (int i = 0, ct = 0; ct < 2; i++) {
             if (line.charAt(i) == ' ') {
-            // if (Character.isWhitespace(line.charAt(i))) {
+                // if (Character.isWhitespace(line.charAt(i))) {
                 res[ct++] = Integer.parseInt(line.substring(prev, i));
                 prev = i + 1;
             }
@@ -204,6 +138,50 @@ public class Maze implements Saveable, Loadable {
         if (inputs.size() != row * col) {
             throw new EntryInsufficientException("Not enough entries for the given maze size");
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || getClass() != (o.getClass())) {
+            return false;
+        }
+        Maze mo = (Maze) o;
+        if (mo.getRow() != row || mo.getCol() != col) {
+            return false;
+        }
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (mo.getMatrix(i, j) !=  matrix[i][j]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        long hash = 0;
+        int q = 1000000007;
+        int n = row * col;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                hash = (n * hash % q + matrix[i][j]) % q;
+            }
+        }
+        return (int)hash;
+    }
+
+    @Override
+    // EFFECTS: saves user input maze to local storage
+    public void save(String str) throws IOException {
+        FileWriter fw = new FileWriter("inputfile.txt", true);
+        PrintWriter writer = new PrintWriter(fw);
+        writer.println(str);
+        writer.close();
     }
 
 

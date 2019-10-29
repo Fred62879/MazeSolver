@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,6 +30,10 @@ public class MazeTest {
     ArrayList<Integer> ip5;
     ArrayList<Integer> ip6;
 
+    public void setupeach(List<Integer> ip, int row, int col) {
+
+    }
+
     @BeforeEach
     public void setup() {
         ip1 = new ArrayList<>(Arrays.asList(0, 0, 0, 1)); // invalid blocked
@@ -38,12 +43,26 @@ public class MazeTest {
         ip5 = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1, 1, 1, 1, 1, 1)); // valid
         ip6 = new ArrayList<>(Arrays.asList(1, 1, 1, 2)); // invalid entry
 
-        mz1 = new Maze(ip1, 2, 2);
-        mz2 = new Maze(ip2, 2, 2);
-        mz3 = new Maze(ip3, 3, 2);
+        mz1 = new Maze();
+        mz1.readMaze(ip1, 2, 2);
+        mz1.initialize();
+
+        mz2 = new Maze();
+        mz2.readMaze(ip2, 2, 2);
+        mz2.initialize();
+
+        mz3 = new Maze();
+        mz3.readMaze(ip3, 3, 2);
+        mz3.initialize();
         //mz4 = new Maze(ip4, 2, 2);
-        mz5 = new Maze(ip5, 10, 1);
-        mz6 = new Maze(ip6, 2, 2);
+
+        mz5 = new Maze();
+        mz5.readMaze(ip5, 10, 1);
+        mz5.initialize();
+
+        mz6 = new Maze();
+        mz6.readMaze(ip6, 2, 2);
+        mz6.initialize();
     }
 
     @Test

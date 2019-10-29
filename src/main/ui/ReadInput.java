@@ -22,7 +22,6 @@ public class ReadInput {
 
     // EFFECTS: instructs the user to give input, reads in and checks validity
     public ReadInput() {
-        System.out.println("Hi there, this is a Maze solver!");
         quit = false;
         record = "";
     }
@@ -74,11 +73,11 @@ public class ReadInput {
         return true;
     }
 
+
+    // Responses
     // EFFECTS: responds to user save request
     private void saveResponse() throws IOException {
-        Scanner s = new Scanner(System.in);
-        System.out.println("Save your maze to local storage? (Y/N)");
-        if (s.next().charAt(0) == 'y') {
+        if (yesNoResponse("Save your maze to local storage?") == 'y') {
             mz.save(record);
             System.out.println("Maze saved successfully!");
         }
@@ -87,12 +86,37 @@ public class ReadInput {
     // EFFECTS: responds to user quit request
     private Boolean quitResponse() {
         Scanner s = new Scanner(System.in);
-        System.out.println("Would you like to re-enter maze? (Y/N)");
-        if (s.next().charAt(0) == 'n') { // quit
+        if (yesNoResponse("Would you like to re-enter maze?") == 'n') { // quit
             return quit = true;
         } else { // do not quit
             return false;
         }
+    }
+
+
+    public char yesNoResponse(String ask) {
+        System.out.println(ask + "(Y/N)");
+        Scanner s = new Scanner(System.in);
+        return s.next().charAt(0);
+    }
+
+    // EFFECTS: returns
+    public int choose() {
+        System.out.println("Which method would you like to use for maze solving? (1-DFS/2-BFS)");
+        int choice = readInt(new Scanner(System.in));
+        while (choice != 1 && choice != 2) {
+            System.out.println("Please select from these two methods only!");
+            choice = readInt(new Scanner(System.in));
+        }
+        return choice;
+    }
+
+    public boolean removeStorage() {
+        return yesNoResponse("Would you like to empty the mem for the maze just solved?") == 'y';
+    }
+
+    public boolean solveNewMaze() {
+        return yesNoResponse("Would you like to solve a new Maze?") == 'y';
     }
 
     // MODIFIES: this
@@ -105,9 +129,9 @@ public class ReadInput {
                     return;
                 }
             }
-            mz = new Maze(inputs, row, col);
-            satisfied = mz.isValid();
-            if (!satisfied && quitResponse()) { // invalid maze, quit?
+            mz = new Maze();
+            mz.readMaze(inputs, row, col);
+            if (!mz.isValid() && quitResponse()) { // invalid maze, quit?
                 return;
             }
         }
@@ -129,21 +153,18 @@ public class ReadInput {
     // EFFECTS: retrieves selected stored maze if any
     //          returns true if such maze exists false otherwise
     private boolean select() throws IOException {
-        Scanner s = new Scanner(System.in);
-        System.out.println("Would you like to retrieve your former maze? (Y/N)");
-        if (s.next().charAt(0) == 'y') {
+        if (yesNoResponse("Would you like to retrieve your former maze?") == 'y') {
             if (!checkStorage()) {
                 System.out.println("No previous maze found!");
                 return false;
             }
             System.out.println("Which maze would you like to restore?");
-            int choice = readInt(s);
+            int choice = readInt(new Scanner(System.in));
             while (choice > lines.size()) {
                 System.out.println("Please select those available here!");
-                choice = readInt(s);
+                choice = readInt(new Scanner(System.in));
             }
             line = lines.get(choice - 1);
-            // stringToList(lines.get(choice - 1));
             return true;
         }
         return false;
@@ -153,7 +174,7 @@ public class ReadInput {
     // EFFECTS: restores stored maze or initializes new maze
     public void readIn() throws IOException {
         mz = new Maze();
-        while (select()) {
+        if (select()) {
             try {
                 mz.load(line);
                 return;
@@ -162,32 +183,6 @@ public class ReadInput {
             }
         }
         readInLoop();
-        if (!quit) {
-            mz.showMaze();
-        }
-    }
-
-    // EFFECTS: returns
-    public int choose() {
-        System.out.println("Which method would you like to use for maze solving? (1-DFS/2-BFS)");
-        int choice = readInt(new Scanner(System.in));
-        while (choice != 1 && choice != 2) {
-            System.out.println("Please select from these two methods only!");
-            choice = readInt(new Scanner(System.in));
-        }
-        return choice;
-    }
-
-    public boolean removeStorage() {
-        System.out.println("Would you like to empty the mem for the maze just solved?(y/n)");
-        Scanner s = new Scanner(System.in);
-        return s.next().charAt(0) == 'y';
-    }
-
-    public boolean solveNewMaze() {
-        System.out.println("Would you like to solve a new Maze?(y/n)");
-        Scanner s = new Scanner(System.in);
-        return s.next().charAt(0) == 'y';
     }
 
 
