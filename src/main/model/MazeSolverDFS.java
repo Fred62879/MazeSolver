@@ -1,8 +1,8 @@
 package model;
 
-public class SolverDFS extends MazeSolver {
+public class MazeSolverDFS extends MazeSolver {
 
-    public SolverDFS(int[][] matrix) {
+    public MazeSolverDFS(int[][] matrix) {
         super(matrix);
     }
 

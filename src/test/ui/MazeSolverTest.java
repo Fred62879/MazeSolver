@@ -1,7 +1,7 @@
 package ui;
 
 import model.MazeSolver;
-import model.SolverDFS;
+import model.MazeSolverDFS;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -15,7 +15,7 @@ public class MazeSolverTest {
     @BeforeEach
     public void setup() {
         mtrx1 = new int[][] { {1, 0, 0, 1, 1, 1, 1}, {1, 1, 1, 1, 0, 1, 1}, {1, 1, 0, 0, 1, 0, 0}, {0, 1, 0, 1, 1, 0, 0}, {0, 1, 0, 1, 0, 0, 0}, {0, 1, 1, 1, 1, 1, 1}};
-        ms1 = new SolverDFS(mtrx1);
+        ms1 = new MazeSolverDFS(mtrx1);
     }
 
     @Test

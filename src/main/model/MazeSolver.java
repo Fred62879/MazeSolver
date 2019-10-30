@@ -6,21 +6,23 @@ import java.util.List;
 
 public abstract class MazeSolver  {
 
+    // protected Maze mz;
     protected int[][] matrix;
     protected int row;
     protected int col;
-    protected int cur;
     protected List<Integer> path;
     protected HashSet<Integer> visited;
+    // protected HashMap<Maze, List<Integer>> solved;
 
     // EFFECTS: constructs new maze solver
     public MazeSolver(int[][] matrix) {
-        this.matrix = matrix;
+        // this.mz = mz;
+        this.matrix = matrix; //mz.getWholeMatrix();
         row = matrix.length;
         col = matrix[0].length;
-        cur = 0;
         path = new ArrayList<Integer>();
         visited = new HashSet<>();
+        // solved = new HashMap<>();
     }
 
     // EFFECTS: produces true if given coor is within matrix and not visited
@@ -31,29 +33,7 @@ public abstract class MazeSolver  {
 
     public abstract boolean solve(int cr, int cc);
 
-    // REQUIRES: maze solvable
-    // EFFECTS: prints one possible maze path
-    public String demo() {
-        String res = "";
-        HashSet<Integer> pathSet = new HashSet<>(path);
-        System.out.println("\n" + "NOTE: * here represents path");
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                String cur = matrix[i][j] == 0 ? "x " : (pathSet.contains(i * col + j) ? "* " : "o ");
-                res += cur;
-                System.out.print(cur);
-            }
-            System.out.println();
-            res += "\n";
-        }
-        return res;
-    }
-
     public List<Integer> getPath() {
         return path;
-    }
-
-    public void setPath(List<Integer> path) {
-        this.path = path;
     }
 }

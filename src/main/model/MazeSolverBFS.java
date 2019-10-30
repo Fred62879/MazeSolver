@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SolverBFS extends MazeSolver {
+public class MazeSolverBFS extends MazeSolver {
 
     private LinkedList<Integer> queue;
     private LinkedList<List<Integer>> pathCol;
 
-    public SolverBFS(int[][] matrix) {
+    public MazeSolverBFS(int[][] matrix) {
         super(matrix);
         queue = new LinkedList<>();
         pathCol = new LinkedList<>();
