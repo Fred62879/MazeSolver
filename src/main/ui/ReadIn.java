@@ -18,6 +18,9 @@ public class ReadIn {
     private String line;
     private String record;
 
+
+    // ** Helper read in methods
+
     // EFFECTS: instructs the user to give input, reads in and checks validity
     public ReadIn() {
         mz = new Maze();
