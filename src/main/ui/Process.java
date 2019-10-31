@@ -1,9 +1,7 @@
 package ui;
 
-import model.MazeSolverDFS;
-import model.Maze;
-import model.MazeDisplayer;
-import model.MazeSolver;
+import model.*;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -12,11 +10,13 @@ public class Process {
 
     private MazeSolver ms;
     private MazeDisplayer md;
-    private ReadIn ri;
+    private Interactions interactions;
+    private ReadMaze readMaze;
     protected HashMap<Maze, List<Integer>> solved;
 
     public Process() {
-        ri = new ReadIn();
+        interactions = new Interactions();
+        readMaze = new ReadMaze();
         solved = new HashMap<>();
     }
 
@@ -27,11 +27,11 @@ public class Process {
     }
 
     public void solveNow(Maze mz) {
-        int choice = ri.choose();
+        int choice = interactions.choose();
         if (choice == 1) {
             ms = new MazeSolverDFS(mz.getWholeMatrix());
         } else if (choice == 2) {
-            ms = new MazeSolverDFS(mz.getWholeMatrix());
+            ms = new MazeSolverBFS(mz.getWholeMatrix());
         }
         ms.solve(0, 0);
         solved.put(mz, ms.getPath());
@@ -40,17 +40,17 @@ public class Process {
     public void run() throws IOException {
         System.out.println("Hi there, this is a Maze solver!");
         while (true) {
-            Maze mz = ri.readInMaze();
+            Maze mz = readMaze.readInMaze();
             if (solved.containsKey(mz)) {
                 System.out.println("Maze solution retrieved from previous storage.");
             } else {
                 solveNow(mz);
             }
             display(mz);
-            if (ri.removeStorage()) {
+            if (interactions.removeStorage()) {
                 solved.remove(mz);
             }
-            if (!ri.solveNewMaze()) {
+            if (!interactions.solveNewMaze()) {
                 break;
             }
         }
