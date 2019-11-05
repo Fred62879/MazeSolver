@@ -19,14 +19,14 @@ public class MazeTest {
     Maze mz1;
     Maze mz2;
     Maze mz3;
-    //Maze mz4;
+    Maze mz4;
     Maze mz5;
     Maze mz6;
 
     ArrayList<Integer> ip1;
     ArrayList<Integer> ip2;
     ArrayList<Integer> ip3;
-    //ArrayList<Integer> ip4;
+    ArrayList<Integer> ip4;
     ArrayList<Integer> ip5;
     ArrayList<Integer> ip6;
 
@@ -39,7 +39,7 @@ public class MazeTest {
         ip1 = new ArrayList<>(Arrays.asList(0, 0, 0, 1)); // invalid blocked
         ip2 = new ArrayList<>(Arrays.asList(0, 1, 1, 2)); // invalid blocked
         ip3 = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 0, 1)); // valid
-        //ip4 = new ArrayList<>(Arrays.asList(1, 1, 1)); // incorrect size
+        ip4 = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 0, 1));
         ip5 = new ArrayList<>(Arrays.asList(1, 1, 1, 1, 1, 1, 1, 1, 1, 1)); // valid
         ip6 = new ArrayList<>(Arrays.asList(1, 1, 1, 2)); // invalid entry
 
@@ -54,7 +54,10 @@ public class MazeTest {
         mz3 = new Maze();
         mz3.readMaze(ip3, 3, 2);
         mz3.initialize();
-        //mz4 = new Maze(ip4, 2, 2);
+
+        mz4 = new Maze();
+        mz4.readMaze(ip4, 3, 2);
+        mz4.initialize();
 
         mz5 = new Maze();
         mz5.readMaze(ip5, 10, 1);
@@ -268,5 +271,16 @@ public class MazeTest {
         // assertFalse(mz4.isValid());
         assertTrue(mz5.isValid());
         assertFalse(mz6.isValid());
+    }
+
+    @Test
+    public void testEqual() {
+        assertTrue(mz3.equals(mz4));
+        assertFalse(mz3.equals(mz5));
+    }
+
+    @Test
+    public void testHashCode() {
+        assertEquals(9325, mz3.hashCode());
     }
 }

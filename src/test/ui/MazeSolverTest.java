@@ -34,5 +34,10 @@ public class MazeSolverTest {
     public void testSolve() {
         assertTrue(ms1.solve(0, 0));
     }
+
+    @Test
+    public void testGetPath() {
+
+    }
 }
 

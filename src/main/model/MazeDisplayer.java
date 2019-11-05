@@ -17,18 +17,22 @@ public class MazeDisplayer {
         path = null;
     }
 
+    public int getPath(int i) {
+        return path.get(i);
+    }
+
     public void setPath(List<Integer> path) {
         this.path = path;
     }
 
-    public void displayMaze() {
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                System.out.print(matrix[i][j] == 0 ? "x " : "o ");
-            }
-            System.out.println();
-        }
-    }
+//    public void displayMaze() {
+//        for (int i = 0; i < row; i++) {
+//            for (int j = 0; j < col; j++) {
+//                System.out.print(matrix[i][j] == 0 ? "x " : "o ");
+//            }
+//            System.out.println();
+//        }
+//    }
 
     public boolean displayPath() {
         if (path == null) {
