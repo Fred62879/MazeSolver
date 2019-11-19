@@ -1,6 +1,6 @@
 package ui;
 
-import model.Maze;
+import model.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MazeSolverUI extends JFrame implements ActionListener {
@@ -27,16 +28,25 @@ public class MazeSolverUI extends JFrame implements ActionListener {
     private JComponent displayPane;
     private JRadioButton retrieve;
     private JRadioButton input;
+    private JRadioButton DFS;
+    private JRadioButton BFS;
     private JTable table;
 
     private String mazeinfo;
     private Maze mz;
+    private HashMap<Maze, List<String>> solved;
+    private MazeSolver ms;
+    private MazeDisplayer md;
+    private List<String> mazeDemo;
 
 
     public MazeSolverUI() {
         super("Maze Solver");
         storeMazes = new ArrayList<>();
         mz = new Maze();
+        solved = new HashMap<>();
+        md = new MazeDisplayer();
+        mazeDemo = new ArrayList<>();
     }
 
     public void initialize() {
@@ -47,12 +57,11 @@ public class MazeSolverUI extends JFrame implements ActionListener {
         label1.setPreferredSize(new Dimension(300, 100));
         container = getContentPane();
         container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
-
+        // UIConstruction uic = new UIConstruction(container);
         container.add(choicePanel());//, BorderLayout.NORTH);
         container.add(inputPanel());//, BorderLayout.CENTER);
-        container.add(submitPanel());//, BorderLayout.SOUTH);
+        container.add(solvePanel());//, BorderLayout.SOUTH);
         container.add(displayPanel());//, BorderLayout.SOUTH);
-
         setLocationRelativeTo(null);
         pack();
         setVisible(true);
@@ -72,6 +81,31 @@ public class MazeSolverUI extends JFrame implements ActionListener {
         } else if (e.getActionCommand() == "Load") {
             mazeinfo = storeMazes.get(table.getSelectedRow());
             initializeMaze();
+        } else if (e.getActionCommand() == "Solve") {
+            uiSolve();
+        }
+    }
+
+    private void uiSolve() {
+        if (solved.containsKey(mz)) {
+            mazeDemo = solved.get(mz);
+        } else {
+            if (DFS.isSelected()) {
+                ms = new MazeSolverDFS(mz.getWholeMatrix());
+            } else {
+                ms = new MazeSolverBFS(mz.getWholeMatrix());
+            }
+            ms.solve(0, 0);
+            System.out.println(ms.getPath().size());
+            if (ms.getPath().size() == 0) {
+                displayInstruction("Maze Unsolvable!");
+            } else {
+                md.load(mz.getWholeMatrix(), ms.getPath());
+                md.displayPath();
+                mazeDemo = md.getDemoPath();
+                solved.put(mz, mazeDemo);
+                displayMazeDemo();
+            }
         }
     }
 
@@ -132,6 +166,17 @@ public class MazeSolverUI extends JFrame implements ActionListener {
         reconstruct();
     }
 
+    private void displayMazeDemo() {
+        container.remove(displayPane);
+        displayPane = new JPanel();
+        displayPane.setLayout(new BoxLayout(displayPane, BoxLayout.PAGE_AXIS));
+        for (String str : mazeDemo) {
+            displayPane.add(new JLabel(str));
+            System.out.println(str);
+        }
+        reconstruct();
+    }
+
     private void reconstruct() {
         container.add(displayPane);
         revalidate();
@@ -152,6 +197,10 @@ public class MazeSolverUI extends JFrame implements ActionListener {
         JButton confirm = new JButton("Confirm");
         confirm.addActionListener(this);
         choicePane.add(confirm);
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(retrieve);
+        group.add(input);
 
         return choicePane;
     }
@@ -177,16 +226,28 @@ public class MazeSolverUI extends JFrame implements ActionListener {
         return inputPane;
     }
 
-    public JPanel submitPanel() {
-        JPanel submitPane = new JPanel();
+    public JPanel solvePanel() {
+        JPanel solvePane = new JPanel();
+        solvePane.setLayout(new BoxLayout(solvePane, BoxLayout.PAGE_AXIS));
 
-        submitPane.setLayout(new FlowLayout());
-        submitPane.add(new JLabel("Press button to submit maze"));
+        JButton solveButton = new JButton("Solve");
+        solveButton.addActionListener(this);
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(this);
-        submitPane.add(submitButton);
 
-        return submitPane;
+        DFS = new JRadioButton("DFS");
+        BFS = new JRadioButton("BFS");
+        ButtonGroup group = new ButtonGroup();
+        group.add(DFS);
+        group.add(BFS);
+
+        solvePane.add(submitButton);
+        solvePane.add(solveButton);
+        solvePane.add(new JLabel("Select algr to solve maze!"));
+        solvePane.add(DFS);
+        solvePane.add(BFS);
+
+        return solvePane;
     }
 
     public JComponent displayPanel() {

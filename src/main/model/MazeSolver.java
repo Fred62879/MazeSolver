@@ -12,6 +12,7 @@ public abstract class MazeSolver  {
     protected List<Integer> path;
     protected HashSet<Integer> visited;
 
+
     // EFFECTS: constructs new maze solver
     public MazeSolver(int[][] matrix) {
         this.matrix = matrix;

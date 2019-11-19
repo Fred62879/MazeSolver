@@ -1,4 +1,4 @@
-package ui;
+package demos;
 
 import javax.swing.*;
 import java.awt.*;

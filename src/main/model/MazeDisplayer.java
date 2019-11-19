@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -9,20 +10,20 @@ public class MazeDisplayer {
     private int col;
     private int[][] matrix;
     private List<Integer> path;
+    private List<String> demoPath;
 
-    public MazeDisplayer(int[][] matrix) {
+    public MazeDisplayer() {}
+
+    public void load(int[][] matrix, List<Integer> path) {
         row = matrix.length;
         col = matrix[0].length;
         this.matrix = matrix;
-        path = null;
+        this.path = path;
+        demoPath = new ArrayList<>();
     }
 
     public int getPath(int i) {
         return path.get(i);
-    }
-
-    public void setPath(List<Integer> path) {
-        this.path = path;
     }
 
 //    public void displayMaze() {
@@ -34,19 +35,40 @@ public class MazeDisplayer {
 //        }
 //    }
 
-    public boolean displayPath() {
-        if (path == null) {
-            System.out.println("Maze not solved yet!");
-            return false;
-        }
+//    public boolean displayPath() {
+//        if (path == null) {
+//            System.out.println("Maze not solved yet!");
+//            return false;
+//        }
+//        HashSet<Integer> pathSet = new HashSet<>(path);
+//        System.out.println("\n" + "NOTE: * here represents path");
+//        for (int i = 0; i < row; i++) {
+//            for (int j = 0; j < col; j++) {
+//                System.out.print(matrix[i][j] == 0 ? "x " : (pathSet.contains(i * col + j) ? "* " : "o "));
+//            }
+//            System.out.println();
+//        }
+//        return true;
+//    }
+
+    public void displayPath() {
+//        if (path == null) {
+//            System.out.println("Maze not solved yet!");
+//            return false;
+//        }
         HashSet<Integer> pathSet = new HashSet<>(path);
-        System.out.println("\n" + "NOTE: * here represents path");
+        demoPath.add("\n" + "NOTE: * here represents path" + "\n");
         for (int i = 0; i < row; i++) {
+            String cur = "";
             for (int j = 0; j < col; j++) {
-                System.out.print(matrix[i][j] == 0 ? "x " : (pathSet.contains(i * col + j) ? "* " : "o "));
+                cur += matrix[i][j] == 0 ? "x " : (pathSet.contains(i * col + j) ? "* " : "o ");
             }
-            System.out.println();
+            demoPath.add(cur);
         }
-        return true;
+//        return true;
+    }
+
+    public List<String> getDemoPath() {
+        return demoPath;
     }
 }
