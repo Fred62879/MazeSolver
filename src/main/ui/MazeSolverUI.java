@@ -96,7 +96,6 @@ public class MazeSolverUI extends JFrame implements ActionListener {
                 ms = new MazeSolverBFS(mz.getWholeMatrix());
             }
             ms.solve(0, 0);
-            System.out.println(ms.getPath().size());
             if (ms.getPath().size() == 0) {
                 displayInstruction("Maze Unsolvable!");
             } else {
@@ -104,7 +103,7 @@ public class MazeSolverUI extends JFrame implements ActionListener {
                 md.displayPath();
                 mazeDemo = md.getDemoPath();
                 solved.put(mz, mazeDemo);
-                displayMazeDemo();
+                displayMaze();
             }
         }
     }
@@ -166,7 +165,7 @@ public class MazeSolverUI extends JFrame implements ActionListener {
         reconstruct();
     }
 
-    private void displayMazeDemo() {
+    private void displayMaze() {
         container.remove(displayPane);
         displayPane = new JPanel();
         displayPane.setLayout(new BoxLayout(displayPane, BoxLayout.PAGE_AXIS));
@@ -201,14 +200,13 @@ public class MazeSolverUI extends JFrame implements ActionListener {
         ButtonGroup group = new ButtonGroup();
         group.add(retrieve);
         group.add(input);
-
+        choicePane.setBorder(BorderFactory.createLineBorder(Color.black));
         return choicePane;
     }
 
     public JPanel inputPanel() {
         JPanel inputPane = new JPanel();
-        inputPane.setLayout(new GridLayout(3, 2));
-
+        inputPane.setLayout(new GridLayout(0, 2));
         rowf = new JTextField(10);
         colf = new JTextField(10);
         entryf = new JTextField(10);
@@ -223,6 +221,11 @@ public class MazeSolverUI extends JFrame implements ActionListener {
         inputPane.add(entryf);//, BorderLayout.EAST);
         entryf.addActionListener(this);
 
+        JButton submitButton = new JButton("Submit");
+        submitButton.addActionListener(this);
+        inputPane.add(submitButton);
+
+        inputPane.setBorder(BorderFactory.createLineBorder(Color.black));
         return inputPane;
     }
 
@@ -232,8 +235,6 @@ public class MazeSolverUI extends JFrame implements ActionListener {
 
         JButton solveButton = new JButton("Solve");
         solveButton.addActionListener(this);
-        JButton submitButton = new JButton("Submit");
-        submitButton.addActionListener(this);
 
         DFS = new JRadioButton("DFS");
         BFS = new JRadioButton("BFS");
@@ -241,17 +242,18 @@ public class MazeSolverUI extends JFrame implements ActionListener {
         group.add(DFS);
         group.add(BFS);
 
-        solvePane.add(submitButton);
         solvePane.add(solveButton);
         solvePane.add(new JLabel("Select algr to solve maze!"));
         solvePane.add(DFS);
         solvePane.add(BFS);
-
+        solvePane.setBorder(BorderFactory.createLineBorder(Color.black));
         return solvePane;
     }
 
     public JComponent displayPanel() {
-        return displayPane = new JPanel();
+        displayPane = new JPanel();
+        displayPane.setBorder(BorderFactory.createLineBorder(Color.black));
+        return displayPane;
     }
 
     public static void main(String[] args) {
