@@ -151,10 +151,12 @@ public class MazeSolverUI extends JFrame implements ActionListener {
             displayPane.setLayout(new BoxLayout(displayPane, BoxLayout.PAGE_AXIS));
             JScrollPane scroll = new JScrollPane(table);
             JButton load = new JButton("Load");
+            load.setAlignmentX(Component.CENTER_ALIGNMENT);
             load.addActionListener(this);
-            displayPane.add(load);
             displayPane.add(scroll);
+            displayPane.add(load);
         }
+        displayPane.setBorder(BorderFactory.createLineBorder(Color.black));
         reconstruct();
     }
 
@@ -204,48 +206,109 @@ public class MazeSolverUI extends JFrame implements ActionListener {
         return choicePane;
     }
 
+    private void inputPanelHelper(GridBagConstraints c, JPanel inputPane, String lb) {
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        inputPane.add(new Label(lb), c);
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = .5;
+        c.gridx = 1;
+        c.gridy = 0;
+        inputPane.add(rowf, c);
+    }
+
     public JPanel inputPanel() {
         JPanel inputPane = new JPanel();
-        inputPane.setLayout(new GridLayout(0, 2));
-        rowf = new JTextField(10);
-        colf = new JTextField(10);
-        entryf = new JTextField(10);
+        inputPane.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
 
-        inputPane.add(new Label("Row"));
-        inputPane.add(rowf);
+        rowf = new JTextField(10);
         rowf.addActionListener(this);
-        inputPane.add(new Label("Col"));
-        inputPane.add(colf);
+        colf = new JTextField(10);
         colf.addActionListener(this);
-        inputPane.add(new Label("Maze entry"));
-        inputPane.add(entryf);//, BorderLayout.EAST);
+        entryf = new JTextField(10);
         entryf.addActionListener(this);
 
-        JButton submitButton = new JButton("Submit");
-        submitButton.addActionListener(this);
-        inputPane.add(submitButton);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        JLabel lb = new JLabel("Row");
+        c.weightx = 0.5;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        inputPane.add(lb, c);
+
+        c.gridx = 1;
+        c.gridy = 0;
+        inputPane.add(rowf, c);
+
+        lb = new JLabel("Column");
+        c.gridx = 2;
+        c.gridy = 0;
+        inputPane.add(lb, c);
+
+        c.gridx = 3;
+        c.gridy = 0;
+        inputPane.add(colf, c);
+
+        c.ipady = 40; // make this component tall
+        c.weightx = 0.0;
+        c.gridwidth = 4;
+        c.gridx = 0;
+        c.gridy = 1;
+        inputPane.add(entryf, c);
+
+        JButton button = new JButton("Submit");
+        c.ipady = 0; // reset
+        c.gridwidth = 2;
+        c.gridx = 1;
+        c.gridy = 2;
+        inputPane.add(button, c);
 
         inputPane.setBorder(BorderFactory.createLineBorder(Color.black));
         return inputPane;
     }
 
+
     public JPanel solvePanel() {
         JPanel solvePane = new JPanel();
-        solvePane.setLayout(new BoxLayout(solvePane, BoxLayout.PAGE_AXIS));
-
-        JButton solveButton = new JButton("Solve");
-        solveButton.addActionListener(this);
-
+        //solvePane.setLayout(new BoxLayout(solvePane, BoxLayout.PAGE_AXIS));
+        solvePane.setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        // create panel components
+        JLabel lb = new JLabel("<html>Select algorithms to solve maze!</html>", SwingConstants.CENTER);
+        // lb.setAlignmentX(Component.CENTER_ALIGNMENT);
         DFS = new JRadioButton("DFS");
         BFS = new JRadioButton("BFS");
         ButtonGroup group = new ButtonGroup();
         group.add(DFS);
         group.add(BFS);
+        JButton solveButton = new JButton("Solve");
+        solveButton.addActionListener(this);
+        // set bag layout
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 4;
+        solvePane.add(lb, c);
 
-        solvePane.add(solveButton);
-        solvePane.add(new JLabel("Select algr to solve maze!"));
-        solvePane.add(DFS);
-        solvePane.add(BFS);
+        c.weightx = 0.5;
+        c.gridwidth = 1;
+        c.gridx = 0;
+        c.gridy = 1;
+        solvePane.add(DFS, c);
+
+        c.gridx = 1;
+        c.gridy = 1;
+        solvePane.add(BFS, c);
+
+        c.weightx = 0;
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridwidth = 0;
+        solvePane.add(solveButton, c);
+
         solvePane.setBorder(BorderFactory.createLineBorder(Color.black));
         return solvePane;
     }
