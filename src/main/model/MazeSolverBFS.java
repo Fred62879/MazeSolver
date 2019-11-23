@@ -15,6 +15,7 @@ public class MazeSolverBFS extends MazeSolver {
         pathCol = new LinkedList<>();
     }
 
+    // EFFECTS: solve maze using bfs helper
     private void helper(int cr, int cc, List<Integer> curPath) {
         int[][] pairs = { {cr + 1, cc}, {cr, cc + 1}, {cr - 1, cc}, {cr, cc - 1} };
         for (int[] pair : pairs) {
@@ -31,6 +32,7 @@ public class MazeSolverBFS extends MazeSolver {
     }
 
     @Override
+    // EFFECTS: solve maze using bfs
     public boolean solve(int cr, int cc) {
         queue.add(0);
         visited.add(0);

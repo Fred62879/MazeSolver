@@ -1,7 +1,5 @@
 package ui;
 
-import model.MazeSolverUI;
-
 import javax.swing.*;
 import java.io.IOException;
 

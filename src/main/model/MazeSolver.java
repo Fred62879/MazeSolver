@@ -27,8 +27,11 @@ public abstract class MazeSolver  {
         return cr >= 0 && cc >= 0 && cr < row && cc < col && matrix[cr][cc] == 1 && !visited.contains(cr * col + cc);
     }
 
+    // EFFECTS: solve maze
     public abstract boolean solve(int cr, int cc);
 
+    // REQUIRES: maze is solved and path is set
+    // EFFECTS: return path
     public List<Integer> getPath() {
         return path;
     }

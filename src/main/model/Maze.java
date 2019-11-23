@@ -43,7 +43,7 @@ public class Maze implements Saveable, Loadable {
             System.out.println(ex.getMessage());
             return ex.getMessage();
         } finally {
-            System.out.println("Maze read in terminated");
+            //System.out.println("Maze read in terminated");
         }
         return "Maze read in terminated";
     }

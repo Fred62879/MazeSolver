@@ -15,6 +15,8 @@ public class MazeDisplayer {
 
     public MazeDisplayer() {}
 
+    // MODIFIES: this
+    // EFFECTS: initialize objects
     public void load(int[][] matrix) {
         row = matrix.length;
         col = matrix[0].length;
@@ -23,14 +25,13 @@ public class MazeDisplayer {
         demoMaze = new ArrayList<>();
     }
 
-    public int getPath(int i) {
-        return path.get(i);
-    }
-
+    // MODIFIES: this
+    // EFFECTS: set path
     public void setPath(List<Integer> path) {
         this.path = path;
     }
 
+    // EFFECTS: display maze
     public void displayMaze() {
         for (int i = 0; i < row; i++) {
             String cur = "";
@@ -59,6 +60,8 @@ public class MazeDisplayer {
 //        return true;
 //    }
 
+    // REQUIRES: path is set
+    // EFFECTS: display path on maze
     public void displayPath() {
         HashSet<Integer> pathSet = new HashSet<>(path);
         // demoPath.add("\n" + "NOTE: * here represents path" + "\n");
@@ -71,10 +74,21 @@ public class MazeDisplayer {
         }
     }
 
+
+    // REQUIRES: path is set
+    // EFFECTS: return path
+    public int getPath(int i) {
+        return path.get(i);
+    }
+
+    // REQUIRES: demopath is set
+    // EFFECTS: return demopath
     public List<String> getDemoPath() {
         return demoPath;
     }
 
+    // REQUIRES: demomaze is set
+    // EFFECTS: return demomaze
     public List<String> getDemoMaze() {
         return demoMaze;
     }
