@@ -24,7 +24,8 @@ public class MazeDisplayerTest {
         path.add(5);
         path.add(6);
         path.add(7);
-        md.load(matrix, path);
+        md.load(matrix);
+        md.setPath(path);
     }
 
     @Test

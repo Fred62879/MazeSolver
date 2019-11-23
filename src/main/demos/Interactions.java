@@ -1,4 +1,4 @@
-package ui;
+package demos;
 
 import java.io.IOException;
 import java.util.InputMismatchException;

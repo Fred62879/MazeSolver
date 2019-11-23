@@ -1,4 +1,4 @@
-package ui;
+package demos;
 
 import model.*;
 
@@ -22,7 +22,8 @@ public class Process {
 
     public void display(Maze mz) {
         md = new MazeDisplayer();
-        md.load(mz.getWholeMatrix(), solved.get(mz));
+        md.load(mz.getWholeMatrix());
+        md.setPath(solved.get(mz));
         md.displayPath();
     }
 

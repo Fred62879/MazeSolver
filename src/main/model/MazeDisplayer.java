@@ -11,29 +11,37 @@ public class MazeDisplayer {
     private int[][] matrix;
     private List<Integer> path;
     private List<String> demoPath;
+    private List<String> demoMaze;
 
     public MazeDisplayer() {}
 
-    public void load(int[][] matrix, List<Integer> path) {
+    public void load(int[][] matrix) {
         row = matrix.length;
         col = matrix[0].length;
         this.matrix = matrix;
-        this.path = path;
         demoPath = new ArrayList<>();
+        demoMaze = new ArrayList<>();
     }
 
     public int getPath(int i) {
         return path.get(i);
     }
 
-//    public void displayMaze() {
-//        for (int i = 0; i < row; i++) {
-//            for (int j = 0; j < col; j++) {
-//                System.out.print(matrix[i][j] == 0 ? "x " : "o ");
-//            }
-//            System.out.println();
-//        }
-//    }
+    public void setPath(List<Integer> path) {
+        this.path = path;
+    }
+
+    public void displayMaze() {
+        for (int i = 0; i < row; i++) {
+            String cur = "";
+            for (int j = 0; j < col; j++) {
+                // System.out.print(matrix[i][j] == 0 ? "x " : "o ");
+                cur += matrix[i][j] == 0 ? "x " : "o ";
+            }
+            // System.out.println();
+            demoMaze.add(cur);
+        }
+    }
 
 //    public boolean displayPath() {
 //        if (path == null) {
@@ -52,12 +60,8 @@ public class MazeDisplayer {
 //    }
 
     public void displayPath() {
-//        if (path == null) {
-//            System.out.println("Maze not solved yet!");
-//            return false;
-//        }
         HashSet<Integer> pathSet = new HashSet<>(path);
-        demoPath.add("\n" + "NOTE: * here represents path" + "\n");
+        // demoPath.add("\n" + "NOTE: * here represents path" + "\n");
         for (int i = 0; i < row; i++) {
             String cur = "";
             for (int j = 0; j < col; j++) {
@@ -65,10 +69,13 @@ public class MazeDisplayer {
             }
             demoPath.add(cur);
         }
-//        return true;
     }
 
     public List<String> getDemoPath() {
         return demoPath;
+    }
+
+    public List<String> getDemoMaze() {
+        return demoMaze;
     }
 }

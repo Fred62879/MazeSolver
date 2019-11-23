@@ -1,4 +1,4 @@
-package ui;
+package demos;
 
 import exceptions.EntryInsufficientException;
 import exceptions.MazeRecordInvalidException;
