@@ -38,6 +38,8 @@ public class MazeSolverUI extends JFrame implements ActionListener {
     private JRadioButton input;
     private JTable table;
 
+    private JPanel test;
+
     // Maze operations
     private Maze mz;
     private MazeSolver ms;

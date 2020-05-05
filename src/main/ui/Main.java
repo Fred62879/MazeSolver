@@ -9,7 +9,6 @@ public class Main {
 //        Process process = new Process();
 //        process.run();
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 new MazeSolverUI().initialize();

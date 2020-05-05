@@ -24,5 +24,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="unfolding.0.9.7-uscd" level="project" />
+    <orderEntry type="library" name="processing-core.jar" level="project" />
   </component>
 </module>

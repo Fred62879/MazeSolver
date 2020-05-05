@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="processing-core.jar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/processing-core.jar.zip!/" />
+      <root url="file://$PROJECT_DIR$/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
+  </library>
+</component>

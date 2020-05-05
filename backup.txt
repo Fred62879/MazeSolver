@@ -1,0 +1,32 @@
+List<String> coord = parse.parseMap(((Map) jo.get("coord")));
+        WeatherComponent wcoord = ctc.lostring2Component("Coord", coord);
+        wc.addComponent(wcoord);
+
+        List<List<String>> weather = parse.parseArray((JSONArray) jo.get("weather"));
+        WeatherComponent wweather = ctc.lolostring2Component("Weather", weather);
+        wc.addComponent(wweather);
+
+        String base = parse.parseString(jo.get("base"));
+        WeatherComponent wbase = ctc.String2Component("Base", base);
+        wc.addComponent(wbase);
+
+        List<String> main = parse.parseMap(((Map) jo.get("main")));
+        WeatherComponent wmain = ctc.lostring2Component("ui.Main", main);
+        wc.addComponent(wmain);
+
+        Long visibility = parse.parseLong(jo.get("visibility"));
+
+
+        List<String> wind = parse.parseMap(((Map) jo.get("wind")));
+
+        List<String> clouds = parse.parseMap(((Map) jo.get("clouds")));
+
+        Long dt = parse.parseLong(jo.get("dt"));
+
+        List<String> sys = parse.parseMap(((Map) jo.get("sys")));
+
+        Long id = parse.parseLong(jo.get("id"));
+
+        String name = parse.parseString(jo.get("name"));
+
+        Long cod = parse.parseLong(jo.get("cod"));
